@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ──────────────────────────────────────────── */
+:root {
+  --color-ink-50:   #f5f0eb;
+  --color-ink-100:  #e8ddd2;
+  --color-ink-200:  #d1bba5;
+  --color-ink-300:  #b99878;
+  --color-ink-400:  #a07d5a;
+  --color-ink-500:  #876445;
+  --color-ink-600:  #6d4f36;
+  --color-ink-700:  #533c29;
+  --color-ink-800:  #3a281c;
+  --color-ink-900:  #21160f;
+  --color-ink-950:  #120c07;
+  
+  --color-parchment-50:  #fdfaf6;
+  --color-parchment-100: #f9f3ea;
+  --color-parchment-200: #f2e5d0;
+  --color-parchment-300: #e8d2b0;
+  --color-parchment-400: #dab98a;
+  --color-parchment-500: #cca06a;
+
+  --color-accent:   #c0392b;
+  --color-accent-h: #a93226;
+  --color-accent-l: #f5b7b1;
+  --color-surface-dark: #1a1410;
+  --color-surface-card: #231c16;
+  --color-surface-hover: #2d2318;
+}
+
+.dark {
+  --color-ink-50:   #21160f;
+  --color-ink-100:  #3a281c;
+  --color-ink-200:  #533c29;
+  --color-ink-300:  #6d4f36;
+  --color-ink-400:  #876445;
+  --color-ink-500:  #a07d5a;
+  --color-ink-600:  #b99878;
+  --color-ink-700:  #d1bba5;
+  --color-ink-800:  #e8ddd2;
+  --color-ink-900:  #f5f0eb;
+  --color-ink-950:  #fdfaf6;
+
+  --color-parchment-50:  #120c07;
+  --color-parchment-100: #1a1410;
+  --color-parchment-200: #231c16;
+  --color-parchment-300: #2d2318;
+  --color-parchment-400: #3a281c;
+  --color-parchment-500: #533c29;
+
+  --color-accent:   #e74c3c;
+  --color-accent-h: #ff7675;
+  --color-accent-l: #641e16;
+  --color-surface-dark: #fdfaf6;
+  --color-surface-card: #f9f3ea;
+  --color-surface-hover: #f2e5d0;
+}
+
+:root {
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-ui:      'DM Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --grain-opacity: 0.035;
+}
+
+/* ─── Base ────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-parchment-50);
+  color: var(--color-ink-900);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px;
+  opacity: var(--grain-opacity);
+}
+
+/* ─── Typography ─────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.font-ui {
+  font-family: var(--font-ui);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-parchment-100); }
+::-webkit-scrollbar-thumb { background: var(--color-ink-200); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-ink-300, #b99878); }
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(192, 57, 43, 0.2);
+  color: var(--color-accent);
+}
+
+/* ─── Animations ─────────────────────────────────────────────── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease both;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+
+/* ─── Components ─────────────────────────────────────────────── */
+
+/* Ruled line decoration */
+.ruled-line {
+  border: none;
+  border-top: 1px solid var(--color-ink-100);
+  position: relative;
+}
+
+.ruled-line::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--color-ink-100);
+}
+
+/* Drop cap on first letter of article */
+.drop-cap > p:first-child::first-letter {
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 700;
+  float: left;
+  line-height: 0.8;
+  padding-right: 0.12em;
+  padding-top: 0.1em;
+  color: var(--color-accent);
+}
+
+/* Prose overrides */
+.prose {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--color-ink-800);
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  background: var(--color-ink-100);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.875em;
+  color: var(--color-accent);
+}
+
+.prose pre {
+  background: #1a1410 !important;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+}
+
+.prose pre code {
+  background: transparent;
+  color: #e8ddd2;
+  font-size: 0.85em;
+  padding: 0;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.5rem;
+  font-style: italic;
+  color: var(--color-ink-200, #d1bba5);
+}
+
+/* Tag pill */
+.tag-pill {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid var(--color-ink-200);
+  border-radius: 2px;
+  color: var(--color-ink-600, #6d4f36);
+  transition: all 0.2s ease;
+}
+
+.tag-pill:hover {
+  background: var(--color-ink-900);
+  color: var(--color-parchment-100);
+  border-color: var(--color-ink-900);
+}
+
+/* Ink button */
+.btn-ink {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.4rem;
+  background: var(--color-ink-900);
+  color: var(--color-parchment-100);
+  border: 1px solid var(--color-ink-900);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-ink:hover {
+  background: var(--color-surface-dark);
+  border-color: var(--color-surface-dark);
+}
+
+.btn-outline {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.4rem;
+  background: transparent;
+  color: var(--color-ink-800);
+  border: 1px solid var(--color-ink-200);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-ink-800);
+  color: var(--color-ink-900);
+}
+
+.btn-accent {
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.6rem 1.4rem;
+  background: var(--color-accent);
+  color: #fff;
+  border: 1px solid var(--color-accent);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-accent:hover {
+  background: var(--color-accent-h);
+  border-color: var(--color-accent-h);
+}
+
+/* Card hover state */
+.post-card {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(33, 22, 15, 0.12);
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-ink-100) 25%,
+    var(--color-parchment-200) 50%,
+    var(--color-ink-100) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* Admin table */
+.admin-table th {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-600, #6d4f36);
+}
+
+/* Editor split pane */
+.editor-pane {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  resize: none;
+  outline: none;
+  background: var(--color-surface-dark);
+  color: var(--color-parchment-200);
+  caret-color: var(--color-accent);
+}
+
