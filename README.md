@@ -60,8 +60,9 @@ The Inkwell is a full-stack editorial platform designed for writers and publishe
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/the-inkwell.git
-cd the-inkwell
+https://github.com/
+git clone https://github.com/Loharsumit/The-Inkwell-Next.js-Editorial-Blog-CMS.git
+cd The-Inkwell-Next.js-Editorial-Blog-CMS
 ```
 
 ### 2. Install dependencies
